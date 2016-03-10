@@ -31,6 +31,7 @@ public class PurchasesController {
     }
     @RequestMapping(path = "/", method = RequestMethod.GET)
     public String home(Model model) {
+        model.addAttribute("purchases", purchases.findAll());
         model.addAttribute("customers", customers.findAll());
         return "home";
     }

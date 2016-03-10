@@ -1,9 +1,15 @@
 <html>
 <body>
-<ol>
-    {{#customers}}
-    <li>{{name}} {{email}}</li>
-    {{/customers}}
-</ol>
+<table style="width:100%">
+<tr> <th>Name</th> <th>Email</th> <th>Date</th> <th>Credit Card</th> <th>CVV</th> <th>Category</th> </tr>
+    {{#purchases}}
+    <tr>{{#customer}}<td>{{name}}</td><td>{{email}}</td>{{/customer}}
+        <td>{{date}}</td>
+        <td>{{creditCard}}</td>
+        <td>{{cvv}}</td>
+        <td>{{category}}</td></tr>
+    {{/purchases}}
+
+</table>
 </body>
 </html>
