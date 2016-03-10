@@ -2,6 +2,9 @@ package com.theironyard;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.annotation.PostConstruct;
 import java.io.File;
@@ -21,8 +24,15 @@ public class PurchasesController {
 
     @PostConstruct
     public void init() throws FileNotFoundException {
+        if (customers.count() < 1 && purchases.count() < 1) {
         readCustomers(); //reads customers.csv into table
         readPurchases(); //reads purchases.csv into table
+        }
+    }
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String home(Model model) {
+        model.addAttribute("customers", customers.findAll());
+        return "home";
     }
 
     public void readCustomers () throws FileNotFoundException {
@@ -35,6 +45,7 @@ public class PurchasesController {
             Customer customer = new Customer(columns[0], columns[1]);
             customers.save(customer);  // saving new customer object into the db table
         }
+        fileScan.close();
     }
     public void readPurchases() throws FileNotFoundException {
         File f = new File("purchases.csv");
@@ -44,7 +55,10 @@ public class PurchasesController {
             String line = fileScan.nextLine();
             String [] columns = line.split(",");
             Purchase purchase = new Purchase(columns[1], columns[2], columns[3], columns[4]);
+            int customerId = Integer.valueOf(columns[0]);
+            purchase.customer = customers.findOne(customerId);
             purchases.save(purchase);
         }
+        fileScan.close();
     }
 }

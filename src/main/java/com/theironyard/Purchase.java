@@ -28,4 +28,7 @@ public class Purchase {
         this.cvv = cvv;
         this.category = category;
     }
+    public Purchase () {
+
+    }
 }
