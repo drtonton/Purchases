@@ -1,15 +1,21 @@
 <html>
 <body>
+<a href="/">All</a>
+<a href="/?category=Furniture">Furniture</a>
+<a href="/?category=Shoes">Shoes</a>
+<a href="/?category=Jewelry">Jewelry</a>
+<a href="/?category=Food">Food</a>
+<a href="/?category=Alcohol">Alcohol</a>
+<a href="/?category=Toiletries">Toiletries</a>
 <table style="width:100%">
 <tr> <th>Name</th> <th>Email</th> <th>Date</th> <th>Credit Card</th> <th>CVV</th> <th>Category</th> </tr>
-    {{#purchases}}
+    {{#purchases}} <!-- this references the model key, which represents the data in purchases repo -->
     <tr>{{#customer}}<td>{{name}}</td><td>{{email}}</td>{{/customer}}
         <td>{{date}}</td>
         <td>{{creditCard}}</td>
         <td>{{cvv}}</td>
         <td>{{category}}</td></tr>
     {{/purchases}}
-
 </table>
 </body>
 </html>

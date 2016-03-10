@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.PostConstruct;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,15 +25,22 @@ public class PurchasesController {
 
     @PostConstruct
     public void init() throws FileNotFoundException {
-        if (customers.count() < 1 && purchases.count() < 1) {
+        if (customers.count() < 1 && purchases.count() < 1) { // only performs these methods if both repos are empty
         readCustomers(); //reads customers.csv into table
         readPurchases(); //reads purchases.csv into table
         }
     }
     @RequestMapping(path = "/", method = RequestMethod.GET)
-    public String home(Model model) {
-        model.addAttribute("purchases", purchases.findAll());
-        model.addAttribute("customers", customers.findAll());
+    public String home(Model model, String category) {
+        List<Purchase> p;
+        if (category != null) {
+            p = purchases.findByCategory(category);
+        }
+        else {
+            p = (List<Purchase>) purchases.findAll();
+        }
+        model.addAttribute("purchases", purchases.findAll()); // findAll grabs the data inside purchases repository
+//        model.addAttribute("customers", customers.findAll());  // not necessary (purchases links to customer table)
         return "home";
     }
 

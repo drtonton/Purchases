@@ -1,9 +1,6 @@
 package com.theironyard;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 /**
  * Created by noellemachin on 3/9/16.
@@ -14,9 +11,16 @@ public class Purchase {
     @GeneratedValue
     int id;
 
+    @Column(nullable = false)
     String date;
+
+    @Column(nullable = false)
     String creditCard;
+
+    @Column(nullable = false)
     String cvv;
+
+    @Column(nullable = false)
     String category;
 
     @ManyToOne
