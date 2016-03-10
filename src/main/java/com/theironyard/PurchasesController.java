@@ -39,7 +39,7 @@ public class PurchasesController {
         else {
             p = (List<Purchase>) purchases.findAll();
         }
-        model.addAttribute("purchases", purchases.findAll()); // findAll grabs the data inside purchases repository
+        model.addAttribute("purchases", p); // findAll grabs the data inside purchases repository
 //        model.addAttribute("customers", customers.findAll());  // not necessary (purchases links to customer table)
         return "home";
     }
